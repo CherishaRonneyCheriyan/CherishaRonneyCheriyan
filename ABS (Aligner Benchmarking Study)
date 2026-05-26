@@ -54,3 +54,100 @@ Why Renegene-GI?
 We made use of 16 sam metrics and 8 VCF matrics for analysis, as mentioned below
 
 
+| No. | SAM Metrics                | Description                        |                                
+| --- | -------------------------- | ---------------------------------- |  
+| 1   |Singleton Rate              | Only one mate mapped               |   
+| 2   | Discordant Pairs           | Abnormal pair orientation          | 
+| 3   | Error Rate                 | Mismatch/indel rate                |
+| 4   | MQ0                        | Rate Reads with MQ = 0             |  
+| 5   | Clipped Bases Rate         | Soft/hard clipped bases            |
+| 6   | Secondary Alignments       | Multi-mapped reads                 |
+| 7   | Supplementary Alignments   | Split alignments                   |
+| 8   | Insert Size SD             | Variation in insert size           |
+| 9   | Minimum Depth              | Threshold Minimum coverage cutoff  |
+| 10  | Insert Size                | Mean Fragment length               |
+| 11  | Overall Mapping Rate       | Fraction of reads aligned          |
+| 12  | Properly Paired Rate       | Correctly paired reads             |
+| 13  | Avg Mapping Quality (MPQ)  | Confidence of mapping              |            
+| 14  | Mean Depth of Coverage     | Average coverage                   |
+| 15  | Breadth of Coverage        | Genome covered                     |
+| 16  | Coverage Uniformity        | Evenness of coverage               |
+ 
+| No. | VCF Metrics                | Description                                 | 
+| --- | -------------------------- | ------------------------------------------- |  
+| 1   | Total Records (Variants)   | Total number of variant calls in VCF        |   
+| 2   | SNPs                       | Number of single nucleotide polymorphisms   | 
+| 3   | Indels                     | Insertions and deletions                    |
+| 4   | MNPs                       | Multi-nucleotide polymorphisms              |  
+| 5   | Multiallelic Sites         | Sites with >2 alleles                       |
+| 6   | Transitions (Ts)           | A to G, C to T substitutions                |
+| 7   | Transversions (Tv)         | Purine ↔ pyrimidine substitutions           |
+| 8   | Ts/Tv Ratio                | Ratio of transitions to transversions       |
+
+ABS PIPEINE (python code)
+
+from graphviz import Digraph
+# Create directed graph
+pipeline = Digraph("ABS_Pipeline", format="png")
+pipeline.attr(rankdir='TB', fontsize='20', fontname='Helvetica')
+pipeline.attr('node', shape='box', style='rounded,filled', color='lightblue', fontname='Helvetica')
+# Pipeline Nodes
+pipeline.node('A', 'ABS PIPELINE\n(Aligner Benchmarking Study)')
+
+pipeline.node(
+    'B',
+    'Shortlisting of Various\nGenomic Aligners\n\n31 Aligners\n(30 Existing + ReneGENE-GI)'
+)
+
+pipeline.node(
+    'C',
+    'Dataset Collection\n\n24 Clinically Isolated\nMicrobial Genomic Samples'
+)
+
+pipeline.node(
+    'D',
+    'Alignment & Variant Calling\n\n31 × 24 Analysis\n744 SAM & VCF Files Generated\n(~2 GB per file)'
+)
+
+pipeline.node(
+    'E',
+    'Benchmarking Metrics Extraction\n\n16 SAM Metrics\n8 VCF Metrics'
+)
+
+pipeline.node(
+    'F',
+    'Normalization & Weight Assignment\n\nMetric Values Normalized\nWeights Assigned Based on\nBiological Importance'
+)
+
+pipeline.node(
+    'G',
+    'Algorithmic & Biological Evaluation\n\nAssessment of:\n• Alignment Strategy\n• Variant Reporting Ability\n• Computational Performance\n• Innate Algorithmic Strengths'
+)
+
+pipeline.node(
+    'H',
+    'Comparative Benchmarking Results\n\nPerformance Ranking\n& Comparative Analysis'
+)
+
+# Connections
+pipeline.edge('A', 'B')
+pipeline.edge('B', 'C')
+pipeline.edge('C', 'D')
+pipeline.edge('D', 'E')
+pipeline.edge('E', 'F')
+pipeline.edge('F', 'G')
+pipeline.edge('G', 'H')
+
+# Save pipeline diagram to Desktop
+import os
+
+# Get Desktop path
+desktop_path = os.path.join(os.path.expanduser('~'), 'Desktop')
+output_path = os.path.join(desktop_path, 'ABS_Pipeline_Diagram')
+
+# Render diagram
+pipeline.render(output_path, cleanup=True)
+
+print('ABS Pipeline diagram generated successfully!')
+print(f'Output file saved at: {output_path}.png')
+

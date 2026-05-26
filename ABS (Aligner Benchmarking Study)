@@ -1,0 +1,56 @@
+## Comparative Overview of Genomic Aligners used for Benchmarking of Renegene-GI
+
+Renegene-GI is an in-house built scalabale genomic aligner which can accomodate both small and large genomes. 
+Here in this project we have devised a pipeline to index, align and report the variants from clinically isolated microbial genomes extracted from various biological samples.
+In this benchmarking study we used 30 state-or-the-art aligners against Renegene-GI to understand its scalabale potential and utility acorss this sample pool.
+
+| No. | Aligner     | Alignment    | Indexing Method       | Core Algorithm        | Year    | Platform |
+| --- | ----------- | ------------ | --------------------- | --------------------- | ------- | -------- |
+| 1   | GMAP-GSNAP  | Local        | k-mer hash            | Seed-and-extend       | 2005    | CPU (MT) |
+| 2   | NextGenMap  | Global       | Hash table            | Iterative trimming    | 2008    | CPU (MT) |
+| 3   | NovoAlign   | Global       | k-mer hash            | Heuristic DP          | 2008    | CPU (MT) |
+| 4   | Bowtie      | Global       | FM-index (BWT)        | Backtracking          | 2009    | CPU (MT) |
+| 5   | BWA         | Local/Global | FM-index + SA         | BWT + DP              | 2009    | CPU (MT) |
+| 6   | SEGEMEHL    | Split-read   | Suffix array          | Bit-vector DP         | 2009    | CPU      |
+| 7   | mrFAST      | Global       | Hash anchoring        | All-mapping           | 2009    | CPU      |
+| 8   | RazerS      | Local        | k-mer index           | Seed-and-extend       | 2009    | CPU (MT) |
+| 9   | TopHat2     | Global       | Spaced seeds          | Splice-aware DP       | 2009    | CPU (MT) |
+| 10  | SMALT       | Local/Global | k-mer hash            | Smith–Waterman        | 2010    | CPU (MT) |
+| 11  | Stampy      | Local        | Hash + BWA seeds      | Bayesian scoring      | 2010    | CPU      |
+| 12  | SHRiMP      | Local        | Spaced seeds          | Smith–Waterman        | 2011    | CPU (MT) |
+| 13  | SNAP        | Semi-global  | Hash table            | SIMD edit distance    | 2011    | CPU (MT) |
+| 14  | Bismark     | Local        | FM-index              | Bisulfite-aware DP    | 2011    | CPU (MT) |
+| 15  | ERNE        | Global       | Hash / BWT            | FM-index backtracking | 2012    | MPI      |
+| 16  | Barracuda   | Local        | FM-index              | Smith–Waterman        | 2012    | GPU      |
+| 17  | GEM3 Mapper | Adaptive     | Custom FM-index       | Bit-vector DP         | 2012    | GPU      |
+| 18  | Subread     | Local        | Subread indexing      | Seed voting           | 2013    | CPU (MT) |
+| 19  | YARA        | Semi-global  | FM-index              | Seed-and-extend       | 2013    | CPU (MT) |
+| 20  | CUSHAW2     | Local        | FM-index              | Hybrid SW             | 2013    | CPU/GPU  |
+| 21  | BBMap       | Local/Global | k-mer index           | Heuristic alignment   | 2014    | CPU (MT) |
+| 22  | Arioc       | Local        | GPU seed index        | GPU seed-and-extend   | 2015    | GPU      |
+| 23  | Minimap2    | Local        | Minimizers            | Chaining + SW         | 2018    | CPU (MT) |
+| 24  | HISAT2      | Local/Global | Hierarchical FM-index | Graph traversal       | 2019    | CPU (MT) |
+| 25  | Magic-BLAST | Local        | BLAST lookup          | Local DP              | 2019    | CPU (MT) |
+| 26  | URMAP       | Semi-global  | 24-mer hash           | MCAS alignment        | 2020    | CPU (MT) |
+| 27  | Chromap     | Local        | Minimizers            | Seed-and-extend       | 2021    | GPU      |
+| 28  | DRAGMAP     | Local/Global | Hash table            | Optimized SW          | 2021    | CPU (MT) |
+| 29  | Strobealign | Local        | Strobemer index       | Strobemer chaining    | 2021    | CPU (MT) |
+| 30  | Winnowmap2  | Local        | Weighted minimizers   | Adaptive seeding      | 2022    | CPU (MT) |
+| 31  | ReneGENE-GI | Adaptive     | Hybrid indexing       | DP                    | Ongoing | CPU/GPU/FGPA |
+
+### Abbreviations
+
+* DP → Dynamic Programming
+* SW → Smith–Waterman
+* MT → Multi-threaded
+* SA → Suffix Array
+* MPI → Message Passing Interface
+
+Why Renegene-GI?
+* Renegene do not rely on heuristic alogrithm but rather used Smith waterman-DP.
+* Renegene-GI considers multiple sequence alignments (MSA) and repeat regions, which are often omitted by other aligners to increase it mapping qulaity.
+* The above point directly helps in reporting more variants such as SNPs and INDELs. 
+
+We made use of 16 sam metrics and 8 VCF matrics for analysis, as mentioned below
+
+

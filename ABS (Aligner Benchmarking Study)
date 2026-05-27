@@ -4,6 +4,12 @@ Renegene-GI is an in-house built scalabale genomic aligner which can accomodate 
 Here in this project we have devised a pipeline to index, align and report the variants from clinically isolated microbial genomes extracted from various biological samples.
 In this benchmarking study we used 30 state-or-the-art aligners against Renegene-GI to understand its scalabale potential and utility acorss this sample pool.
 
+Why Renegene-GI?
+* Renegene do not rely on heuristic alogrithm but rather used Smith waterman-DP.
+* Renegene-GI considers multiple sequence alignments (MSA) and repeat regions, which are often omitted by other aligners to increase it mapping qulaity.
+* The above point directly helps in reporting more variants such as SNPs and INDELs. 
+
+
 | No. | Aligner     | Alignment    | Indexing Method       | Core Algorithm        | Year    | Platform |
 | --- | ----------- | ------------ | --------------------- | --------------------- | ------- | -------- |
 | 1   | GMAP-GSNAP  | Local        | k-mer hash            | Seed-and-extend       | 2005    | CPU (MT) |
@@ -46,13 +52,7 @@ In this benchmarking study we used 30 state-or-the-art aligners against Renegene
 * SA → Suffix Array
 * MPI → Message Passing Interface
 
-Why Renegene-GI?
-* Renegene do not rely on heuristic alogrithm but rather used Smith waterman-DP.
-* Renegene-GI considers multiple sequence alignments (MSA) and repeat regions, which are often omitted by other aligners to increase it mapping qulaity.
-* The above point directly helps in reporting more variants such as SNPs and INDELs. 
-
 We made use of 16 sam metrics and 8 VCF matrics for analysis, as mentioned below
-
 
 | No. | SAM Metrics                | Description                        |                                
 | --- | -------------------------- | ---------------------------------- |  
@@ -84,7 +84,9 @@ We made use of 16 sam metrics and 8 VCF matrics for analysis, as mentioned below
 | 7   | Transversions (Tv)         | Purine ↔ pyrimidine substitutions           |
 | 8   | Ts/Tv Ratio                | Ratio of transitions to transversions       |
 
-ABS PIPEINE (python code)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#ABS PIPEINE (python code)
 
 from graphviz import Digraph
 # Create directed graph
@@ -150,4 +152,6 @@ pipeline.render(output_path, cleanup=True)
 
 print('ABS Pipeline diagram generated successfully!')
 print(f'Output file saved at: {output_path}.png')
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
